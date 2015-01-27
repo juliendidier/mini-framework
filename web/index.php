@@ -6,11 +6,12 @@ use Framework\Framework;
 use Symfony\Component\HttpFoundation\Request;
 
 $routes = include __DIR__.'/../src/app.php';
+$container = include __DIR__.'/../src/container.php';
 
 $request = Request::createFromGlobals();
-$framework = new Framework($routes);
 
-$framework
+$container
+    ->get('framework')
     ->handle($request)
     ->send()
 ;
