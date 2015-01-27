@@ -17,8 +17,13 @@ $container->register('listener.router', 'Symfony\Component\HttpKernel\EventListe
     ->setArguments(array(new Reference('url_matcher')))
 ;
 
+$container->register('listener.exception', 'Symfony\Component\HttpKernel\EventListener\ExceptionListener')
+    ->setArguments(array('Formation\\Controller\\ErrorController::exceptionAction'))
+;
+
 $container->register('event_dispatcher', 'Symfony\Component\EventDispatcher\EventDispatcher')
     ->addMethodCall('addSubscriber', array(new Reference('listener.router')))
+    ->addMethodCall('addSubscriber', array(new Reference('listener.exception')))
 ;
 
 $container->register('framework', 'Framework\Framework')
