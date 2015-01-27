@@ -37,4 +37,19 @@ $container->register('framework', 'Framework\Framework')
     ->setArguments(array(new Reference('event_dispatcher'), new Reference('controller_resolver')))
 ;
 
+$container->setParameter('twig.views', __DIR__.'/../views');
+$container->setParameter('twig.config', array(
+    'debug'            => true,
+    'strict_variables' => true,
+    'cache'            => __DIR__.'/../cache/twig',
+));
+
+$container->register('twig.loader', 'Twig_Loader_Filesystem')
+    ->setArguments(array('%twig.views%'))
+;
+
+$container->register('twig', 'Twig_Environment')
+    ->setArguments(array(new Reference('twig.loader'), '%twig.config%'))
+;
+
 return $container;

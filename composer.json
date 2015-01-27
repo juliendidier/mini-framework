@@ -5,7 +5,8 @@
         "symfony/routing": "2.6.*",
         "symfony/http-kernel": "2.6.*",
         "symfony/event-dispatcher": "2.6.*",
-        "symfony/dependency-injection": "2.6.*"
+        "symfony/dependency-injection": "2.6.*",
+        "twig/twig": "1.18.*"
     },
     "autoload": {
         "psr-4": { "": "src/" }

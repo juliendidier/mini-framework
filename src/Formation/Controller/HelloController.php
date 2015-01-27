@@ -2,15 +2,17 @@
 
 namespace Formation\Controller;
 
+use Framework\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\DependencyInjection\ContainerAware;
 
-class HelloController extends ContainerAware
+class HelloController extends Controller
 {
     public function helloAction(Request $request, $name)
     {
-        return new Response(sprintf('Hello %s', $name));
+        return $this->render('Home/hello.html.twig', array(
+            'name' => $name,
+        ));
     }
 
     public function byeAction(Request $request)
