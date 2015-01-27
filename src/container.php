@@ -7,8 +7,10 @@ $container = new DependencyInjection\ContainerBuilder();
 
 $container->register('request_context', 'Symfony\Component\Routing\RequestContext');
 
+$container->setParameter('routes', include __DIR__.'/../src/app.php');
+
 $container->register('url_matcher', 'Symfony\Component\Routing\Matcher\UrlMatcher')
-    ->setArguments(array($routes, new Reference('request_context')))
+    ->setArguments(array('%routes%', new Reference('request_context')))
 ;
 
 $container->register('controller_resolver', 'Symfony\Component\HttpKernel\Controller\ControllerResolver');
