@@ -6,39 +6,28 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
+use Symfony\Component\HttpKernel\EventListener\ExceptionListener;
+use Symfony\Component\HttpKernel\EventListener\ResponseListener;
+use Symfony\Component\HttpKernel\EventListener\RouterListener;
+use Symfony\Component\HttpKernel\HttpKernel;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
+use Symfony\Component\Routing\RequestContext;
 
-class Framework
+class Framework extends HttpKernel
 {
-    protected $matcher;
-    protected $resolver;
-    protected $dispatcher;
-
-    public function __construct(UrlMatcher $matcher, ControllerResolver $resolver, EventDispatcher $dispatcher)
+    public function __construct($routes)
     {
-        $this->matcher = $matcher;
-        $this->resolver = $resolver;
-        $this->dispatcher = $dispatcher;
-    }
+        $context = new RequestContext();
+        $matcher = new UrlMatcher($routes, $context);
+        $resolver = new ControllerResolver();
 
-    public function handle(Request $request)
-    {
-        try {
-            $request->attributes->add($this->matcher->match($request->getPathInfo()));
-            $controller = $this->resolver->getController($request);
-            $arguments = $this->resolver->getArguments($request, $controller);
+        $dispatcher = new EventDispatcher();
+        $dispatcher->addSubscriber(new RouterListener($matcher));
+        $dispatcher->addSubscriber(new ResponseListener('UTF-8'));
 
-            $response = call_user_func_array($controller, $arguments);
-        } catch (ResourceNotFoundException $e) {
-            $response = new Response('Not Found', 404);
-        } catch (Exception $e) {
-            $response = new Response('An error occurred', 500);
-        }
-
-        $this->dispatcher->dispatch('response', new ResponseEvent($response, $request));
-
-        return $response;
+        parent::__construct($dispatcher, $resolver);
     }
 }
 
