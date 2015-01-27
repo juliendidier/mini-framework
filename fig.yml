@@ -1,0 +1,30 @@
+nginx:
+    image: nginx:latest
+    links:
+        - php:php
+    volumes:
+        - .:/var/www
+        - docker/nginx/nginx.conf:/nginx.conf
+    ports:
+        - 80:80
+    command: nginx -c /nginx.conf
+
+php:
+    build: ./docker/php
+    links:
+        - postgresql:database
+    ports:
+        - 9000:9000
+    volumes:
+        - .:/srv/http
+
+postgresql:
+    image: orchardup/postgresql:9.3
+    ports:
+        - 5432:5432
+    environment:
+        POSTGRESQL_USER: 'formation'
+        POSTGRESQL_PASS: 'formation'
+        POSTGRESQL_DB: 'formation'
+    volumes:
+        - data/postgresql:/var/lib/postgresql
