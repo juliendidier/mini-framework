@@ -4,8 +4,9 @@ namespace Formation\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\DependencyInjection\ContainerAware;
 
-class HelloController
+class HelloController extends ContainerAware
 {
     public function helloAction(Request $request, $name)
     {

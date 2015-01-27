@@ -23,9 +23,14 @@ $container->register('listener.exception', 'Symfony\Component\HttpKernel\EventLi
     ->setArguments(array('Formation\\Controller\\ErrorController::exceptionAction'))
 ;
 
+$container->register('listener.container_aware', 'Framework\EventListener\ContainerAwareListener')
+    ->setArguments(array($container))
+;
+
 $container->register('event_dispatcher', 'Symfony\Component\EventDispatcher\EventDispatcher')
     ->addMethodCall('addSubscriber', array(new Reference('listener.router')))
     ->addMethodCall('addSubscriber', array(new Reference('listener.exception')))
+    ->addMethodCall('addSubscriber', array(new Reference('listener.container_aware')))
 ;
 
 $container->register('framework', 'Framework\Framework')
