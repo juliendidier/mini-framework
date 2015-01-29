@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <ul>
+        {% for cartItem in cart.items %}
+            <li>
+                <a href="/articles/{{ cartItem.article.name }}">
+                    {{ cartItem.article.name }}
+                </a>
+                ({{ cartItem.article.format }})
+                Qté : {{ cartItem.quantity }}
+
+            </li>
+        {% else %}
+            <li><em>Votre panier est vide :'(</em></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

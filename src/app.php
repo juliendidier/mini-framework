@@ -19,4 +19,11 @@ $routes->add('article_show', new Routing\Route('/articles/{name}', array(
     '_controller' => 'Formation\Controller\ArticleController::showAction'
 )));
 
+$routes->add('cart_add', new Routing\Route('/cart/add', array(
+    '_controller' => 'Formation\Controller\CartController::addAction'
+)));
+$routes->add('cart_show', new Routing\Route('/cart', array(
+    '_controller' => 'Formation\Controller\CartController::showAction'
+)));
+
 return $routes;

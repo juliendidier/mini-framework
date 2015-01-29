@@ -66,4 +66,8 @@ $container->register('database', 'Framework\Database\Connection')
 $container->register('article_xmascard_repository', 'Formation\Repository\ArticleXmasCardRepository')
     ->setArguments(array(new Reference('database')))
 ;
+
+
+$container->register('session', 'Framework\Session');
+
 return $container;

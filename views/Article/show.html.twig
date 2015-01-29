@@ -6,4 +6,11 @@
         {% if article.isEditable %}<li>editable</li>{% endif %}
         <li>{{ article.price|number_format(2, ',', ' ') }}</li>
     </ul>
+
+    <form method="POST" action="/index.php/cart/add">
+        <input type="hidden" name="name" value="{{ article.name }}" />
+        <input type="text" name="quantity" />
+
+        <input type="submit" value="ajouter au panier" />
+    </form>
 {% endblock %}

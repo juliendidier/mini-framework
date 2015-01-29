@@ -66,4 +66,9 @@ class CartItem
     {
         return $this->state !== self::TO_CUSTOMIZE;
     }
+
+    public function getArticle()
+    {
+        return $this->article;
+    }
 }
