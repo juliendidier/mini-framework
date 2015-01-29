@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <ul>
+        {% for article in articles %}
+            <li>{{ article.name }} ({{ article.format }})</li>
+        {% else %}
+            <li><em>No articles...</em></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

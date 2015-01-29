@@ -1,9 +1,12 @@
 <?php
 
 use Symfony\Component\DependencyInjection;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\Yaml\Yaml;
 
-$container = new DependencyInjection\ContainerBuilder();
+$parameters = Yaml::parse(__DIR__.'/../config/parameters.yml');
+$container = new DependencyInjection\ContainerBuilder(new ParameterBag($parameters['parameters']));
 
 $container->register('request_context', 'Symfony\Component\Routing\RequestContext');
 
@@ -50,6 +53,14 @@ $container->register('twig.loader', 'Twig_Loader_Filesystem')
 
 $container->register('twig', 'Twig_Environment')
     ->setArguments(array(new Reference('twig.loader'), '%twig.config%'))
+;
+
+$container->register('database', 'Framework\Database\Connection')
+    ->setArguments(array(
+        $container->getParameter('database.dsn'),
+        $container->getParameter('database.user'),
+        $container->getParameter('database.password')
+    ))
 ;
 
 return $container;

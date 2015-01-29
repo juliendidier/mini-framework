@@ -1,0 +1,4 @@
+parameters:
+    database.dsn:      mysql:host=localhost;port=3306;dbname=formation
+    database.user:     root
+    database.password: root

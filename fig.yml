@@ -12,19 +12,36 @@ nginx:
 php:
     build: ./docker/php
     links:
-        - postgresql:database
+        - mysql:database
     ports:
         - 9000:9000
     volumes:
         - .:/srv/http
 
-postgresql:
-    image: orchardup/postgresql:9.3
+# mysql:
+#     image: mysql:latest
+#     ports:
+#         - 3306:3306
+#     environment:
+#         MYSQL_USER: 'formation'
+#         MYSQL_PASSWORD: 'formation'
+#         MYSQL_DATABASE: 'formation'
+#         MYSQL_ROOT_PASSWORD: 'root'
+#     volumes:
+#         - data/mysql:/var/lib/mysql
+
+# phmyadmin:
+#     image: maxexcloo/phpmyadmin
+#     ports:
+#         - 8080:80
+#     links:
+#         - mysql:mysql
+
+
+mysql:
+    image: wnameless/mysql-phpmyadmin:latest
     ports:
-        - 5432:5432
-    environment:
-        POSTGRESQL_USER: 'formation'
-        POSTGRESQL_PASS: 'formation'
-        POSTGRESQL_DB: 'formation'
+        - 3306:3306
+        - 8080:80
     volumes:
-        - data/postgresql:/var/lib/postgresql
+        - data/mysql:/var/lib/mysql
