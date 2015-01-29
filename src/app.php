@@ -15,5 +15,8 @@ $routes->add('bye', new Routing\Route('/bye', array(
 $routes->add('article_list', new Routing\Route('/articles', array(
     '_controller' => 'Formation\Controller\ArticleController::listAction'
 )));
+$routes->add('article_show', new Routing\Route('/articles/{name}', array(
+    '_controller' => 'Formation\Controller\ArticleController::showAction'
+)));
 
 return $routes;

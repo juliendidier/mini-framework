@@ -10,12 +10,19 @@ class ArticleController extends Controller
 {
     public function listAction(Request $request)
     {
-        $query = 'SELECT * FROM article_xmascard';
-        $stmt = $this->container->get('database')->getConnection()->query($query);
-        $articles = $stmt->fetchAll(\PDO::FETCH_CLASS, 'Formation\Model\XmasCard');
+        $articles = $this->container->get('article_xmascard_repository')->findAll();
 
         return $this->render('Article/list.html.twig', array(
             'articles' => $articles,
+        ));
+    }
+
+    public function showAction(Request $request, $name)
+    {
+        $article = $this->container->get('article_xmascard_repository')->find($name);
+
+        return $this->render('Article/show.html.twig', array(
+            'article' => $article,
         ));
     }
 }

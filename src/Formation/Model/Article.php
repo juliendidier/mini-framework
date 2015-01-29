@@ -36,4 +36,9 @@ abstract class Article
     {
         return $this->isVarnished;
     }
+
+    public function isEditable()
+    {
+        return $this->isEditable;
+    }
 }

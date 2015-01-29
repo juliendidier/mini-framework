@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <ul>
+        <li>{{ article.name }}</li>
+        {% if article.isEditable %}<li>editable</li>{% endif %}
+        <li>{{ article.price|number_format(2, ',', ' ') }}</li>
+    </ul>
+{% endblock %}
