@@ -25,5 +25,8 @@ $routes->add('cart_add', new Routing\Route('/cart/add', array(
 $routes->add('cart_show', new Routing\Route('/cart', array(
     '_controller' => 'Formation\Controller\CartController::showAction'
 )));
+$routes->add('cart_item_edit', new Routing\Route('/cart/{id}/edit', array(
+    '_controller' => 'Formation\Controller\CartController::editAction'
+)));
 
 return $routes;

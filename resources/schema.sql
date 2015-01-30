@@ -13,5 +13,6 @@ CREATE TABLE `article_xmascard` (
 insert into article_xmascard (name, format, paperType, isVarnished, price, isEditable)
 values
   ('x200', '15x15', 'Chromomat 300g', 0, 0.90, 1),
-  ('x250', '30x15', 'Chromomat 300g', 0, 1.50, 1)
+  ('x250', '30x15', 'Chromomat 300g', 0, 1.50, 1),
+  ('x300', '30x30', 'Chromomat 300g', 0, 1.50, 0)
 ;

@@ -1,18 +1,46 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <ul>
+    <table border=1>
         {% for cartItem in cart.items %}
-            <li>
-                <a href="/articles/{{ cartItem.article.name }}">
-                    {{ cartItem.article.name }}
-                </a>
-                ({{ cartItem.article.format }})
-                Qté : {{ cartItem.quantity }}
-
-            </li>
+            <tr>
+                <td>
+                    <a href="/articles/{{ cartItem.article.name }}">
+                        {{ cartItem.article.name }}
+                    </a>
+                    ({{ cartItem.article.format }})
+                </td>
+                <td>
+                    Qté : {{ cartItem.quantity }}
+                </td>
+                <td>
+                    <em>{{ cartItem.amount|number_format(2, ',', ' ') }} EUR</em>
+                </td>
+                <td>
+                    {{ cartItem.state }}
+                </td>
+                <td>
+                    {% if cartItem.article.isEditable %}
+                        <a href="/cart/{{ loop.index0 }}/edit">editer</a>
+                    {% endif %}
+                </td>
+            </tr>
         {% else %}
-            <li><em>Votre panier est vide :'(</em></li>
+            <tr><td><em>Votre panier est vide :'(</em></td></tr>
         {% endfor %}
-    </ul>
+
+        {% if not cart.isEmpty %}
+            <tr>
+                <td colspan="4">
+                    Total panier :
+                    <em>{{ cart.totalAmount|number_format(2, ',', ' ') }} EUR</em>
+                </td>
+                <td>
+                    {% if cart.isOrderable %}
+                        Commander
+                    {% endif %}
+                </td>
+            </tr>
+        {% endif %}
+    </table>
 {% endblock %}

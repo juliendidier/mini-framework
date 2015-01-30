@@ -8,6 +8,7 @@ use Framework\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CartController extends Controller
 {
@@ -45,5 +46,30 @@ class CartController extends Controller
         return $this->render('Cart/show.html.twig', array(
             'cart' => $cart,
         )); 
+    }
+
+    public function editAction(Request $request, $id)
+    {
+        $session = $this->container->get('session');
+        $cart = $session->get('cart', new Cart());
+        $cartItems = $cart->getItems();
+
+        if (!isset($cartItems[$id]) || empty($cartItems[$id])) {
+            throw new NotFoundHttpException('Cart item not found');
+        }
+
+        $cartItem = $cartItems[$id];
+
+        switch ($cartItem->getState()) {
+            case CartItem::BLANK:
+                $cartItem->setState(CartItem::CUSTOMIZED);
+                break;
+            
+            default:
+                $cartItem->setState(CartItem::BLANK);
+                break;
+        }
+
+        return new RedirectResponse('/cart');
     }
 }

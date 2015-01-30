@@ -24,6 +24,11 @@ class CartItem
         $this->state = $state;
     }
 
+    public function getState()
+    {
+        return $this->state;
+    }
+
     public function getDiscountRate()
     {
         return $this->discountRate;
@@ -64,7 +69,11 @@ class CartItem
 
     public function isOrderable()
     {
-        return $this->state !== self::TO_CUSTOMIZE;
+        if ($this->article->isEditable() && $this->state !== self::CUSTOMIZED) {
+            return false;
+        }
+
+        return true;
     }
 
     public function getArticle()

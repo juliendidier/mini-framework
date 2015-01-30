@@ -51,7 +51,7 @@ class CartTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($cart->isOrderable());
 
-        $cartItem->setState(Model\CartItem::TO_CUSTOMIZE);
+        $cartItem->setState(Model\CartItem::BLANK);
 
         $this->assertFalse($cart->isOrderable());
     }
