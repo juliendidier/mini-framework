@@ -28,5 +28,8 @@ $routes->add('cart_show', new Routing\Route('/cart', array(
 $routes->add('cart_item_edit', new Routing\Route('/cart/{id}/edit', array(
     '_controller' => 'Formation\Controller\CartController::editAction'
 )));
+$routes->add('cart_discount', new Routing\Route('/cart/discount', array(
+    '_controller' => 'Formation\Controller\CartController::discountAction'
+)));
 
 return $routes;

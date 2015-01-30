@@ -6,8 +6,8 @@ use Formation\Util\DiscountCodeHelper;
 
 class Cart
 {
-    public $cartItems = array();
-    protected $discountCode;
+    protected $cartItems = array();
+    public $discountCode;
 
     public static $discountCodes = array(
         'VOEUX15' => 15,

@@ -72,4 +72,20 @@ class CartController extends Controller
 
         return new RedirectResponse('/cart');
     }
+
+    public function discountAction(Request $request)
+    {
+        if (!$request->request->has('discount')) {
+            throw new \LogicException('No discount code sent');
+        }
+
+        $discount = $request->request->get('discount');
+
+        $session = $this->container->get('session');
+        $cart = $session->get('cart', new Cart());
+
+        $cart->setDiscountCode($discount);
+
+        return new RedirectResponse('/cart');
+    }
 }

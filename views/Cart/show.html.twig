@@ -31,7 +31,13 @@
 
         {% if not cart.isEmpty %}
             <tr>
-                <td colspan="4">
+                <td>
+                    Code promo
+                    <form method="POST" action="/cart/discount">
+                        <input type="text" name="discount" value="{{ cart.discountCode }}" />
+                    </form>
+                </td>
+                <td colspan="3">
                     Total panier :
                     <em>{{ cart.totalAmount|number_format(2, ',', ' ') }} EUR</em>
                 </td>
